@@ -11,24 +11,21 @@ class MainWindow:
         self.root.title("Currency - Change Calculator")
     
         self.request_class = RequestCurrency() 
-        self.raw_request = self.request_class.get_country_data()
-                
+        self.raw_request = self.request_class.get_country_data()        
+       
         self.country_dict = reorder_country_dictionary(request_result= self.raw_request)
-        
-
-        self.country_dropdown_liste = []
+        self.country_dropdown_list = []
 
         for key in self.country_dict.keys():
-            self.country_dropdown_liste.append(key)
+            self.country_dropdown_list.append(key)
 
-        self.country_dropdown_liste.sort()
+        self.country_dropdown_list.sort()
 
-        
         self.dropdown_var_1 = StringVar()
-        self.dropdown_var_1.set(self.country_dropdown_liste[65])
+        self.dropdown_var_1.set(self.country_dropdown_list[65])
 
         self.dropdown_var_2 = StringVar()
-        self.dropdown_var_2.set(self.country_dropdown_liste[148])
+        self.dropdown_var_2.set(self.country_dropdown_list[148])
 
         FRAME_STYLE = {"bg":"black"}
         LABEL_STYLE = {"bg": "black", "fg": "white", "text":"Currency exchange rates calculation".upper(), "font":("Calibri", 15, "bold")}
@@ -57,10 +54,10 @@ class MainWindow:
         self.label_widget_1.pack(fill=BOTH)
 
         #Dropdowns
-        self.dropdown_currency_1 = OptionMenu(self.dropdown_frame, self.dropdown_var_1,self.country_dropdown_liste[0], *self.country_dropdown_liste, command= lambda: self.update_button_widget())
+        self.dropdown_currency_1 = OptionMenu(self.dropdown_frame, self.dropdown_var_1,self.country_dropdown_list[0], *self.country_dropdown_list, command= lambda: self.update_button_widget())
         self.dropdown_currency_1.grid(row= 1, column=0, sticky="NSWE")
 
-        self.dropdown_currency_2 = OptionMenu(self.dropdown_frame, self.dropdown_var_2, self.country_dropdown_liste[55], *self.country_dropdown_liste, command= lambda: self.update_button_widget())
+        self.dropdown_currency_2 = OptionMenu(self.dropdown_frame, self.dropdown_var_2, self.country_dropdown_list[55], *self.country_dropdown_list, command= lambda: self.update_button_widget())
         self.dropdown_currency_2.grid(row= 1, column=2, sticky="NSWE")
 
         #Buttons
@@ -77,15 +74,15 @@ class MainWindow:
         self.result_textbox_1.grid(row=1, column=1)
         
 
-    def create_frame_widget(self, **kwargs) -> None:
+    def create_frame_widget(self, **kwargs) -> object:
         return Frame(master= self.root, **kwargs)
 
     
-    def create_label_widget(self, **kwargs) -> None:
+    def create_label_widget(self, **kwargs) -> object:
         return Label(**kwargs)
 
 
-    def create_button_widget(self, **kwargs) -> None:
+    def create_button_widget(self, **kwargs) -> object:
         return Button(**kwargs,)
 
 
