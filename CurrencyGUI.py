@@ -14,8 +14,7 @@ class MainWindow:
         self.raw_request = self.request_class.get_country_data()
                 
         self.country_dict = reorder_country_dictionary(request_result= self.raw_request)
-        
-
+      
         self.country_dropdown_liste = []
 
         for key in self.country_dict.keys():
