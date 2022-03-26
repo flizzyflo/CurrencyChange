@@ -76,15 +76,15 @@ class MainWindow:
         self.result_textbox_1.grid(row=1, column=1)
         
 
-    def create_frame_widget(self, **kwargs) -> None:
+    def create_frame_widget(self, **kwargs) -> object:
         return Frame(master= self.root, **kwargs)
 
     
-    def create_label_widget(self, **kwargs) -> None:
+    def create_label_widget(self, **kwargs) -> object:
         return Label(**kwargs)
 
 
-    def create_button_widget(self, **kwargs) -> None:
+    def create_button_widget(self, **kwargs) -> object:
         return Button(**kwargs,)
 
 
