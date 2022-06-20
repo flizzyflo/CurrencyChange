@@ -1,6 +1,6 @@
 
 
-def reorder_country_dictionary(request_result: dict) -> list:
+def refactorResponse(request_result: dict) -> dict[str, str|int]:
     """Reordering the country data request result. Sets the whole country name as key for the dictionary."""
 
     request_result = request_result["results"]
@@ -15,7 +15,7 @@ def reorder_country_dictionary(request_result: dict) -> list:
     return reordered_country_dict
 
 
-def calculate_exchange_rate(class_widget: object, currency_1: str, currency_2: str) -> None:
+def calculateExchangeRate(class_widget: object, currency_1: str, currency_2: str) -> list[int]:
     """Calculating the exchange rate and returning a 1-dimensional list containing the exchange rate."""
 
-    return [value for key, value in class_widget.convert_currency(currency_1, currency_2).items()]
+    return [value for key, value in class_widget.convertCurrency(currency_1, currency_2).items()]

@@ -1,7 +1,8 @@
 
 from tkinter import *
 from Request import RequestCurrency
-from UsingRequestData import reorder_country_dictionary, calculate_exchange_rate
+from Settings import *
+from UsingRequestData import refactorResponse, calculateExchangeRate
 
 
 class MainWindow:
@@ -11,9 +12,9 @@ class MainWindow:
         self.root.title("Currency - Change Calculator")
     
         self.request_class = RequestCurrency() 
-        self.raw_request = self.request_class.get_country_data()        
+        self.raw_request = self.request_class.getCountryCurrencyData()        
        
-        self.country_dict = reorder_country_dictionary(request_result= self.raw_request)
+        self.country_dict = refactorResponse(request_result= self.raw_request)
         self.country_dropdown_list = []
 
         for key in self.country_dict.keys():
@@ -27,12 +28,7 @@ class MainWindow:
         self.dropdown_var_2 = StringVar()
         self.dropdown_var_2.set(self.country_dropdown_list[148])
 
-        FRAME_STYLE = {"bg":"black"}
-        LABEL_STYLE = {"bg": "black", "fg": "white", "text":"Currency exchange rates calculation".upper(), "font":("Calibri", 15, "bold")}
-        BUTTON_WIDTH = 20
-        BUTTON_HEIGTH = 2
-        BUTTON_STYLE = {"width": BUTTON_WIDTH, "height": BUTTON_HEIGTH, "relief": GROOVE, "borderwidth": 1, "bg":"lightgrey", "font": ("Calibri", 12, "bold")}
-
+    
         #Information header
         self.information_frame = self.create_frame_widget(**FRAME_STYLE)
         self.information_frame.pack(fill=BOTH)
@@ -89,7 +85,7 @@ class MainWindow:
     def update_button_widget(self) -> None:
         """Updates the button widget to get new information out of the drop down menu."""
 
-        calculate_exchange_rate(self.request_class, self.country_dict[self.dropdown_var_1.get()]["currencyId"], self.country_dict[self.dropdown_var_2.get()]["currencyId"])
+        calculateExchangeRate(self.request_class, self.country_dict[self.dropdown_var_1.get()]["currencyId"], self.country_dict[self.dropdown_var_2.get()]["currencyId"])
 
 
     def clear_exchange_rate_textbox(self) -> None:
@@ -105,7 +101,7 @@ class MainWindow:
             self.clear_exchange_rate_textbox()
         
         finally:
-            exchange_rate = calculate_exchange_rate(class_widget= self.request_class, currency_1= self.country_dict[self.dropdown_var_1.get()]["currencyId"], currency_2= self.country_dict[self.dropdown_var_2.get()]["currencyId"])
+            exchange_rate = calculateExchangeRate(class_widget= self.request_class, currency_1= self.country_dict[self.dropdown_var_1.get()]["currencyId"], currency_2= self.country_dict[self.dropdown_var_2.get()]["currencyId"])
             self.show_result(exchange_rate= exchange_rate)
             self.colorize_textbox(exchange_rate= exchange_rate)
 
