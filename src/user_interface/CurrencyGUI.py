@@ -22,31 +22,35 @@ class MainWindow(tk.Tk):
         self.country_dropdown_list.sort()
 
         self.dropdown_var_1 = tk.StringVar()
-        self.dropdown_var_1.set(self.country_dropdown_list[65])
+        self.dropdown_var_1.set(self.country_dropdown_list[65]) #defines country 65 as start value
 
         self.dropdown_var_2 = tk.StringVar()
-        self.dropdown_var_2.set(self.country_dropdown_list[148])
+        self.dropdown_var_2.set(self.country_dropdown_list[148]) #defines country 148 as start value
 
     
         #Information header
-        self.information_frame = self.create_frame_widget(**FRAME_STYLE)
+        self.information_frame = tk.Frame(master= self,
+                                          **FRAME_STYLE)
         self.information_frame.pack(fill=tk.BOTH)
 
         #Dropdown frame
-        self.dropdown_frame = self.create_frame_widget(**FRAME_STYLE)
+        self.dropdown_frame = tk.Frame(master= self,
+                                       **FRAME_STYLE)
         self.dropdown_frame.pack(fill=tk.BOTH, expand=tk.TRUE)
 
         #Button Frame
-        self.button_frame = self.create_frame_widget(**FRAME_STYLE)
+        self.button_frame = tk.Frame(master= self,
+                                     **FRAME_STYLE)
         self.button_frame.pack(fill=tk.BOTH)
 
         #Result Frame
-        self.result_frame = self.create_frame_widget(**FRAME_STYLE)
+        self.result_frame = tk.Frame(master= self,
+                                     **FRAME_STYLE)
         self.result_frame.pack(fill=tk.BOTH)
 
         #Labels
-        self.label_widget_1 = self.create_label_widget(master=self.information_frame,
-                                                       **LABEL_STYLE)
+        self.label_widget_1 = tk.Label(master=self.information_frame,
+                                       **LABEL_STYLE)
         self.label_widget_1.pack(fill=tk.BOTH)
 
         #Dropdowns
@@ -65,20 +69,21 @@ class MainWindow(tk.Tk):
         self.dropdown_currency_2.grid(row=1, column=2, sticky="NSWE")
 
         #Buttons
-        self.calculate_button = self.create_button_widget(master=self.button_frame,
-                                                          text="Get exchange rates".upper(),
-                                                          **BUTTON_STYLE)
+        self.calculate_button = tk.Button(master=self.button_frame,
+                                          text="Get exchange rates".upper(),
+                                          **BUTTON_STYLE)
+
         self.calculate_button.pack(fill=tk.X)
         self.calculate_button.config(command= lambda: self.get_result())
 
-        self.quit_button = self.create_button_widget(master=self.button_frame,
-                                                     text="Quit Application".upper(),
-                                                     command=quit,
-                                                     **BUTTON_STYLE)
+        self.quit_button = tk.Button(master=self.button_frame,
+                                     text="Quit Application".upper(),
+                                     command=quit,
+                                     **BUTTON_STYLE)
         self.quit_button.pack(fill=tk.X)
 
         #Textbox
-        self.result_textbox_1 = tk.Text(self.dropdown_frame,
+        self.result_textbox_1 = tk.Text(master= self.dropdown_frame,
                                         bg="lightgrey",
                                         font=("Calibri", 17, "bold"),
                                         height=3,
@@ -87,17 +92,6 @@ class MainWindow(tk.Tk):
                                         borderwidth=3)
         self.result_textbox_1.tag_configure("tag_name", justify='center')
         self.result_textbox_1.grid(row=1, column=1)
-
-    def create_frame_widget(self, **kwargs) -> object:
-        return tk.Frame(master= self, **kwargs)
-
-
-    def create_label_widget(self, **kwargs) -> object:
-        return tk.Label(**kwargs)
-
-    def create_button_widget(self, **kwargs) -> object:
-        return tk.Button(**kwargs,)
-
 
     def update_button_widget(self) -> None:
         """
@@ -108,12 +102,10 @@ class MainWindow(tk.Tk):
                                 self.country_dict[self.dropdown_var_1.get()]["currencyId"],
                                 self.country_dict[self.dropdown_var_2.get()]["currencyId"])
 
-
     def clear_exchange_rate_textbox(self) -> None:
         """Clears the result text widget when clicking the calculation button to delete old information."""
 
         self.result_textbox_1.delete("0.0", tk.END)
-
 
     def get_result(self) -> None:
         """Put out the information of the exchange rate"""
@@ -128,7 +120,6 @@ class MainWindow(tk.Tk):
             self.show_result(exchange_rate=exchange_rate)
             self.colorize_textbox(exchange_rate=exchange_rate)
 
-
     def show_result(self, exchange_rate: list) -> None:
         """Shows the results, puts out the information into the result textbox"""
 
@@ -136,10 +127,11 @@ class MainWindow(tk.Tk):
         
         self.result_textbox_1.insert("1.0", f'\n{result_text}')
         self.result_textbox_1.tag_add("tag_name", "1.0", tk.END)
-        
 
     def colorize_textbox(self, exchange_rate: list) -> None:
-        """Colorizes the result textbox depending on the exchange rate. Base is the leftish currency."""
+        """
+        Colorizes the result textbox depending on the exchange rate. Base is the leftish currency.
+        """
 
         if float(exchange_rate[0]) >= 1:
             self.result_textbox_1.config(bg="#36ff68")

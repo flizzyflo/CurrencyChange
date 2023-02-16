@@ -26,7 +26,7 @@ class RequestCurrency:
         """
 
         endpoint = f"convert?q={currency_1}_{currency_2}&compact=ultra&apiKey="
-        url= f"https://free.currconv.com/api/v7/{endpoint}{self.API_KEY}"
+        url = f"https://free.currconv.com/api/v7/{endpoint}{self.API_KEY}"
         
         return requests.get(url).json()
 

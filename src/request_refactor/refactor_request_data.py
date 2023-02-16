@@ -25,4 +25,4 @@ def calculate_exchange_rate(class_widget: object, currency_1: str, currency_2: s
     Calculating the exchange rate and returning an 1-dimensional list containing the exchange rate.
     """
 
-    return [value for key, value in class_widget.convert_currency(currency_1, currency_2).items()]
+    return [value for key, value in class_widget.convert_currency(currency_1=currency_1, currency_2=currency_2).items()]
