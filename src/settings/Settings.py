@@ -18,4 +18,3 @@ BASE_URL = f"https://free.currconv.com/api/v7/"
 FILENAME = "secret.txt"
 with open(FILENAME, "r") as file:
     API_KEY = file.readline()
-
