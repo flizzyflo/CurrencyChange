@@ -10,9 +10,9 @@ class MainWindow(tk.Tk):
     def __init__(self) -> None:
         super().__init__()
 
-        self.request_class = RequestCurrency() 
+        self.request_class = RequestCurrency()
         self.raw_request = self.request_class.get_country_currency_data()
-       
+
         self.country_dict = refactor_response(request_result= self.raw_request)
         self.country_dropdown_list = []
 
@@ -45,7 +45,7 @@ class MainWindow(tk.Tk):
         self.result_frame.pack(fill=tk.BOTH)
 
         #Labels
-        self.label_widget_1 = self.create_label_widget(master= self.information_frame,
+        self.label_widget_1 = self.create_label_widget(master=self.information_frame,
                                                        **LABEL_STYLE)
         self.label_widget_1.pack(fill=tk.BOTH)
 
@@ -54,24 +54,24 @@ class MainWindow(tk.Tk):
                                                  self.dropdown_var_1,
                                                  self.country_dropdown_list[0],
                                                  *self.country_dropdown_list,
-                                                 command= lambda: self.update_button_widget())
-        self.dropdown_currency_1.grid(row= 1, column=0, sticky="NSWE")
+                                                 command=lambda: self.update_button_widget())
+        self.dropdown_currency_1.grid(row=1, column=0, sticky="NSWE")
 
         self.dropdown_currency_2 = tk.OptionMenu(self.dropdown_frame,
                                                  self.dropdown_var_2,
                                                  self.country_dropdown_list[55],
                                                  *self.country_dropdown_list,
-                                                 command= lambda: self.update_button_widget())
-        self.dropdown_currency_2.grid(row= 1, column=2, sticky="NSWE")
+                                                 command=lambda: self.update_button_widget())
+        self.dropdown_currency_2.grid(row=1, column=2, sticky="NSWE")
 
         #Buttons
-        self.calculate_button = self.create_button_widget(master= self.button_frame,
+        self.calculate_button = self.create_button_widget(master=self.button_frame,
                                                           text="Get exchange rates".upper(),
                                                           **BUTTON_STYLE)
         self.calculate_button.pack(fill=tk.X)
         self.calculate_button.config(command= lambda: self.get_result())
 
-        self.quit_button = self.create_button_widget(master= self.button_frame,
+        self.quit_button = self.create_button_widget(master=self.button_frame,
                                                      text="Quit Application".upper(),
                                                      command=quit,
                                                      **BUTTON_STYLE)
@@ -87,22 +87,22 @@ class MainWindow(tk.Tk):
                                         borderwidth=3)
         self.result_textbox_1.tag_configure("tag_name", justify='center')
         self.result_textbox_1.grid(row=1, column=1)
-        
 
     def create_frame_widget(self, **kwargs) -> object:
-        return tk.Frame(master= self.root, **kwargs)
+        return tk.Frame(master= self, **kwargs)
 
-    
+
     def create_label_widget(self, **kwargs) -> object:
         return tk.Label(**kwargs)
-
 
     def create_button_widget(self, **kwargs) -> object:
         return tk.Button(**kwargs,)
 
 
     def update_button_widget(self) -> None:
-        """Updates the button widget to get new information out of the drop down menu."""
+        """
+        Updates the button widget to get new information out of the drop down menu.
+        """
 
         calculate_exchange_rate(self.request_class,
                                 self.country_dict[self.dropdown_var_1.get()]["currencyId"],
@@ -122,11 +122,11 @@ class MainWindow(tk.Tk):
             self.clear_exchange_rate_textbox()
         
         finally:
-            exchange_rate = calculate_exchange_rate(class_widget= self.request_class,
-                                                    currency_1= self.country_dict[self.dropdown_var_1.get()]["currencyId"],
-                                                    currency_2= self.country_dict[self.dropdown_var_2.get()]["currencyId"])
-            self.show_result(exchange_rate= exchange_rate)
-            self.colorize_textbox(exchange_rate= exchange_rate)
+            exchange_rate = calculate_exchange_rate(class_widget=self.request_class,
+                                                    currency_1=self.country_dict[self.dropdown_var_1.get()]["currencyId"],
+                                                    currency_2=self.country_dict[self.dropdown_var_2.get()]["currencyId"])
+            self.show_result(exchange_rate=exchange_rate)
+            self.colorize_textbox(exchange_rate=exchange_rate)
 
 
     def show_result(self, exchange_rate: list) -> None:
@@ -135,7 +135,7 @@ class MainWindow(tk.Tk):
         result_text = f'1 {self.country_dict[self.dropdown_var_1.get()]["currencyId"]} = {exchange_rate[0]:2.4f} {self.country_dict[self.dropdown_var_2.get()]["currencyId"]}'
         
         self.result_textbox_1.insert("1.0", f'\n{result_text}')
-        self.result_textbox_1.tag_add("tag_name", "1.0", END)
+        self.result_textbox_1.tag_add("tag_name", "1.0", tk.END)
         
 
     def colorize_textbox(self, exchange_rate: list) -> None:
@@ -147,6 +147,3 @@ class MainWindow(tk.Tk):
         else:
             self.result_textbox_1.config(bg="#ed3434")
             
-
-    def main(self) -> None:
-        self.root.mainloop()

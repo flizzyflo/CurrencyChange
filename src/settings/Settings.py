@@ -15,4 +15,4 @@ BUTTON_STYLE = {"width": BUTTON_WIDTH,
 
 
 BASE_URL = f"https://free.currconv.com/api/v7/"
-API_KEY = "your api key here"  # insert your own api key here into this constant
+API_KEY = "983f29f127481cdcd244"  # insert your own api key here into this constant

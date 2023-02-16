@@ -2,11 +2,12 @@
 import requests
 from src.settings.Settings import *
 
+
 class RequestCurrency:
 
     def __init__(self) -> None:
-        self.API_KEY= API_KEY
-        self.BASEURL= BASE_URL
+        self.API_KEY = API_KEY
+        self.BASEURL = BASE_URL
 
     def get_currency_data(self) -> dict[str, str | int]:
 
