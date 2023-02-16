@@ -10,7 +10,6 @@ class RequestCurrency:
         self.BASEURL = BASE_URL
 
     def get_currency_data(self) -> dict[str, str | int]:
-
         """
         Getting the Base Currency data and unformation about currencies
         """
