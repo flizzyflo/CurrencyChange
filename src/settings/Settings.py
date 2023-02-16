@@ -13,4 +13,9 @@ BUTTON_STYLE = {"width": BUTTON_WIDTH,
                 "font": ("Calibri", 12, "bold")}
 
 BASE_URL = f"https://free.currconv.com/api/v7/"
-API_KEY = r"983f29f127481cdcd244"  # insert your own api key here into this constant
+
+# read file containing the api key.
+FILENAME = "secrets.txt"
+with open(FILENAME, "r") as file:
+    API_KEY = file.readline()
+
